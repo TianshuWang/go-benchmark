@@ -1,0 +1,9 @@
+.idea
+**.out
+**.html
+.terraform
+.DS_Store
+*/.DS_Store
+
+*.work
+*.work.sum
