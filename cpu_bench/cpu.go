@@ -1,7 +1,6 @@
 package cpu_bench
 
 import (
-	"fmt"
 	"golang.org/x/crypto/bcrypt"
 	"sync"
 )
@@ -32,10 +31,8 @@ func sendData(ch chan<- bool) {
 
 func receiveData(wg *sync.WaitGroup, threadId int, ch <-chan bool) {
 	defer wg.Done() // make sure that this thread will be finished after the execution of this function
-	for data := range ch {
+	for range ch {
 		bcrypt.GenerateFromPassword([]byte("test"), 10)
-		fmt.Printf("Thread: %d\n", threadId)
-		fmt.Println("Data Received:", data)
 	}
 	//wg.Done()
 }
@@ -49,6 +46,5 @@ func limitParallel(n int) {
 		wg.Add(1) //when don't know how many threads will be run
 		go receiveData(&wg, i, ch)
 	}
-
 	wg.Wait()
 }
